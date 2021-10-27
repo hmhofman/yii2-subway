@@ -41,17 +41,17 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['meal', 'user'], 'required'],
-            [['meal', 'user', 'subway', 'bread', 'topping', 'veggies', 'finish', 'drink'], 'integer'],
+            [['meal_id', 'user_id'], 'required'],
+            [['meal_id', 'user_id', 'subway_id', 'bread_id', 'topping_id', 'veggies_id', 'finish_id', 'drink_id'], 'integer'],
             [['breadsize'], 'string'],
-            [['meal', 'user'], 'unique', 'targetAttribute' => ['meal', 'user']],
-            [['meal'], 'exist', 'skipOnError' => true, 'targetClass' => Meal::className(), 'targetAttribute' => ['meal' => 'id']],
-            [['user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user' => 'id']],
-            [['bread'], 'exist', 'skipOnError' => true, 'targetClass' => Bread::className(), 'targetAttribute' => ['bread' => 'id']],
-            [['topping'], 'exist', 'skipOnError' => true, 'targetClass' => Topping::className(), 'targetAttribute' => ['topping' => 'id']],
-            [['subway'], 'exist', 'skipOnError' => true, 'targetClass' => Subway::className(), 'targetAttribute' => ['subway' => 'id']],
-            [['drink'], 'exist', 'skipOnError' => true, 'targetClass' => Drink::className(), 'targetAttribute' => ['drink' => 'id']],
-            [['veggies'], 'exist', 'skipOnError' => true, 'targetClass' => Veggy::className(), 'targetAttribute' => ['veggies' => 'id']],
+            [['meal_id', 'user_id'], 'unique', 'targetAttribute' => ['meal_id', 'user_id']],
+            [['meal_id'], 'exist', 'skipOnError' => true, 'targetClass' => Meal::className(), 'targetAttribute' => ['meal_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['bread_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bread::className(), 'targetAttribute' => ['bread_id' => 'id']],
+            [['topping_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topping::className(), 'targetAttribute' => ['topping_id' => 'id']],
+            [['subway_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subway::className(), 'targetAttribute' => ['subway_id' => 'id']],
+            [['drink_id'], 'exist', 'skipOnError' => true, 'targetClass' => Drink::className(), 'targetAttribute' => ['drink_id' => 'id']],
+            [['veggies_id'], 'exist', 'skipOnError' => true, 'targetClass' => Veggy::className(), 'targetAttribute' => ['veggies_id' => 'id']],
         ];
     }
 
