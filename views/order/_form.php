@@ -12,13 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'meal')->textInput() ?>
+    <?= $form->field($model, 'meal')->textInput(['readOnly' => 'readOnly', 'disabled' => 'disabled', 'title' => 'Only the open meal is available'])->label('Meal date') ?>
 
-    <?= $form->field($model, 'user')->textInput() ?>
+    <?= $form->field($model, 'user')->dropDownList([], ['readOnly' => 'readOnly', 'disabled' => 'disabled', 'title' => 'You can only enter an order for yourself']) ?>
 
     <?= $form->field($model, 'subway')->textInput() ?>
 
     <?= $form->field($model, 'bread')->textInput() ?>
+
+    <?= $form->field($model, 'breadsize')->dropDownList([ 15 => '15', 30 => '30', ], ['prompt' => ''])->label('Size (in cm)') ?>
 
     <?= $form->field($model, 'topping')->textInput() ?>
 
@@ -27,8 +29,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'finish')->textInput() ?>
 
     <?= $form->field($model, 'drink')->textInput() ?>
-
-    <?= $form->field($model, 'breadsize')->dropDownList([ 15 => '15', 30 => '30', ], ['prompt' => '']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

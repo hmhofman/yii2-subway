@@ -24,10 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'meal',
-            'user',
+            //'user',
             'subway',
             'bread',
-            'topping',
+            //'topping',
             //'veggies',
             //'finish',
             //'drink',
