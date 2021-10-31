@@ -24,11 +24,16 @@ if ($model->meal_id && $meal && $meal->id !== $model->meal_id) {
 $users = [];
 $users[Yii::$app->user->id] = Yii::$app->user->identity->username;
 if ($model->user_id !== Yii::$app->user->id) {
-    $user = User::find($model->user_id);
+    $user = \app\models\User::find($model->user_id)->one();
     $users[$user->id] = $user->username;
 }
 // Here's room to add more users, but only the admin should be allowed to do so...
-
+if (Yii::$app->user->identity->isAdmin()) {
+    $dummy = app\models\User::find()->all();
+    foreach ($dummy as $record) {
+        $users[$record->id] = $record->username;
+    }
+}
 
 $subway = [];
 $dummy = app\models\subway\Subway::find()->all();

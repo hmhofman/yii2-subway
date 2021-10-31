@@ -129,14 +129,22 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    /**
+     * Create required users (if they don't exist).
+     * User admin and user herman.
+     * @link https://devreadwrite.com/posts/yii2-basic-authorization-and-registration-via-the-database
+     */
     public function actionAddAdmin() {
         $model = User::find()->where(['username' => 'admin'])->one();
         if (empty($model)) {
             $user = new User();
             $user->username = 'admin';
-            $user->email = 'admin@devreadwrite.com';
+            $user->email = 'admin@example.com';
             $user->setPassword('admin');
             $user->generateAuthKey();
+
+            // Status column should be 10 (active) automatically.
+            // Other columns are not used (yet)
             if ($user->save()) {
                 echo 'User admin added <br />';
             }
