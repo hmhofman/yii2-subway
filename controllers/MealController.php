@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\Meal;
+use app\models\subway\Meal;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -79,7 +79,7 @@ class MealController extends Controller
         $model = new Meal();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post()) && $this->sanitize($model) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -89,6 +89,34 @@ class MealController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    private function sanitize(&$model)
+    {
+        if ($model->date ) {
+            $model->date = (new \DateTime($model->date))->format('Y-m-d');
+            //$model->date = new \DateTime($model->date);
+        }
+        if ($model->opened_by && !$model->opened_at) {
+            $model->opened_at = new DateTime();
+        }
+        if (!$model->opened_by && $model->opened_at) {
+            $model->opened_by = Yii::$app->user->id;
+        }
+        if ($model->closed_by && !$model->closed_at) {
+            $model->closed_at = new DateTime();
+        }
+        if (!$model->closed_by && $model->closed_at) {
+            $model->closed_by = Yii::$app->user->id;
+        }
+        if ($model->opened_at && !$model->opened_at instanceof DateTime) {
+            $model->opened_at = (new \DateTime($model->opened_at))->format('Y-m-d H:i:s');
+        }
+        if ($model->closed_at && !$model->closed_at instanceof DateTime) {
+            $model->closed_at = (new \DateTime($model->closed_at))->format('Y-m-d H:i:s');
+        }
+        //die('<pre>'.print_r(['$model' => $model], true));
+        return true;
     }
 
     /**
@@ -102,7 +130,7 @@ class MealController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $this->sanitize($model) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

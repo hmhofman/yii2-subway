@@ -38,10 +38,19 @@ if (!Yii::$app->user->identity || !Yii::$app->user->identity->isAdmin()) {
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if ($meal): ?>
+        <?php if ($meal && !$meal->closed_at): ?>
+
         <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
+
         <?php else : ?>
-        No open meals (yet).
+
+        <div class="alert alert-warning" role="alert">
+            No open meals (yet).
+            <?php if (Yii::$app->user->identity && Yii::$app->user->identity->isAdmin()) : ?>
+                <br /><a class="btn btn-outline-secondary" href="/index.php?r=meal/create">Open a new meal &raquo;</a></p>
+            <?php endif; ?>
+        </div>
+
         <?php endif; ?>
     </p>
 

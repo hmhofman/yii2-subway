@@ -55,7 +55,7 @@ class OrderController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'meal' => Meal::find()->where(['closed_at' => null])
+            'meal' => Meal::find()->where(['closed_at' => null])->one()
         ]);
     }
 
@@ -81,19 +81,23 @@ class OrderController extends Controller
     public function actionCreate()
     {
         $model = new Order();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'meal' => $model->meal_id, 'user' => $model->user_id]);
-            }
+        if (!Yii::$app->user->identity) {
+            Yii::$app->response->redirect('/index.php?r=site/login');
         } else {
-            $model->loadDefaultValues();
-        }
 
-        return $this->render('create', [
-            'model' => $model,
-            'meal' => Meal::find()->where(['closed_at' => null])->one()
-        ]);
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'meal' => $model->meal_id, 'user' => $model->user_id]);
+                }
+            } else {
+                $model->loadDefaultValues();
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+                'meal' => Meal::find()->where(['closed_at' => null])->one()
+            ]);
+        }
     }
 
     /**

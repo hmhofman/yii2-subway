@@ -13,8 +13,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if (Yii::$app->user->identity->isAdmin()) : ?>
+
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+
+    <?php else : ?>
+    <div class="alert alert-danger" role="alert">
+        Only Admins can create meals
+    </div>
+
+    <?php endif; ?>
 
 </div>

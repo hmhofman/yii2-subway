@@ -33,6 +33,7 @@ class Meal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            //[['date', 'closed_at', 'opened_at'], 'datetime'],
             [['date', 'closed_at', 'opened_at'], 'safe'],
             [['opened_by', 'closed_by'], 'integer'],
             [['date'], 'unique'],
@@ -49,8 +50,8 @@ class Meal extends \yii\db\ActiveRecord
             'date' => 'Date',
             'closed_at' => 'Closed At',
             'opened_at' => 'Opened At',
-            'opened_by' => 'user',
-            'closed_by' => 'user',
+            'opened_by' => 'Opened By',
+            'closed_by' => 'Closed By',
         ];
     }
 
