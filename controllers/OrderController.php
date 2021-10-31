@@ -2,7 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Order;
+use app\models\subway\Order;
+use app\models\subway\Meal;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -54,6 +55,7 @@ class OrderController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'meal' => Meal::find()->where(['closed_at' => null])
         ]);
     }
 
@@ -64,10 +66,10 @@ class OrderController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($meal, $user)
+    public function actionView($meal_id, $user_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($meal, $user),
+            'model' => $this->findModel($meal_id, $user_id),
         ]);
     }
 
@@ -82,7 +84,7 @@ class OrderController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'meal' => $model->meal, 'user' => $model->user]);
+                return $this->redirect(['view', 'meal' => $model->meal_id, 'user' => $model->user_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -90,6 +92,7 @@ class OrderController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'meal' => Meal::find()->where(['closed_at' => null])->one()
         ]);
     }
 
@@ -101,12 +104,12 @@ class OrderController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($meal, $user)
+    public function actionUpdate($meal_id, $user_id)
     {
-        $model = $this->findModel($meal, $user);
+        $model = $this->findModel($meal_id, $user_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'meal' => $model->meal, 'user' => $model->user]);
+            return $this->redirect(['view', 'meal_id' => $model->meal_id, 'user_id' => $model->user_id]);
         }
 
         return $this->render('update', [
@@ -122,9 +125,9 @@ class OrderController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($meal, $user)
+    public function actionDelete($meal_id, $user_id)
     {
-        $this->findModel($meal, $user)->delete();
+        $this->findModel($meal_id, $user_id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -137,9 +140,9 @@ class OrderController extends Controller
      * @return Order the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($meal, $user)
+    protected function findModel($meal_id, $user_id)
     {
-        if (($model = Order::findOne(['meal' => $meal, 'user' => $user])) !== null) {
+        if (($model = Order::findOne(['meal_id' => $meal_id, 'user_id' => $user_id])) !== null) {
             return $model;
         }
 

@@ -8,13 +8,18 @@ use yii\grid\GridView;
 
 $this->title = 'Orders';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="order-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?php if ($meal): ?>
         <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php else : ?>
+        No open meals (yet).
+        <?php endif; ?>
     </p>
 
 

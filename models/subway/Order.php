@@ -1,8 +1,9 @@
 <?php
 
-namespace app\models;
+namespace app\models\subway;
 
 use Yii;
+use app\models\User;
 
 /**
  * This is the model class for table "order".
@@ -61,14 +62,14 @@ class Order extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'meal' => 'Meal',
-            'user' => 'User',
-            'subway' => 'Subway',
-            'bread' => 'Bread',
-            'topping' => 'Topping',
-            'veggies' => 'Veggies',
-            'finish' => 'Finish',
-            'drink' => 'Drink',
+            'meal_id' => 'Meal',
+            'user_id' => 'User',
+            'subway_id' => 'Subway',
+            'bread_id' => 'Bread',
+            'topping_id' => 'Topping',
+            'veggies_id' => 'Veggies',
+            'finish_id' => 'Finish',
+            'drink_id' => 'Drink',
             'breadsize' => 'in cm',
         ];
     }
@@ -80,7 +81,7 @@ class Order extends \yii\db\ActiveRecord
      */
     public function getBread0()
     {
-        return $this->hasOne(Bread::className(), ['id' => 'bread']);
+        return $this->hasOne(Bread::className(), ['id' => 'bread_id']);
     }
 
     /**
@@ -90,7 +91,7 @@ class Order extends \yii\db\ActiveRecord
      */
     public function getDrink0()
     {
-        return $this->hasOne(Drink::className(), ['id' => 'drink']);
+        return $this->hasOne(Drink::className(), ['id' => 'drink_id']);
     }
 
     /**
@@ -100,7 +101,7 @@ class Order extends \yii\db\ActiveRecord
      */
     public function getMeal0()
     {
-        return $this->hasOne(Meal::className(), ['id' => 'meal']);
+        return $this->hasOne(Meal::className(), ['id' => 'meal_id']);
     }
 
     /**
@@ -110,7 +111,7 @@ class Order extends \yii\db\ActiveRecord
      */
     public function getSubway0()
     {
-        return $this->hasOne(Subway::className(), ['id' => 'subway']);
+        return $this->hasOne(Subway::className(), ['id' => 'subway_id']);
     }
 
     /**
@@ -120,7 +121,7 @@ class Order extends \yii\db\ActiveRecord
      */
     public function getTopping0()
     {
-        return $this->hasOne(Topping::className(), ['id' => 'topping']);
+        return $this->hasOne(Topping::className(), ['id' => 'topping_id']);
     }
 
     /**
@@ -130,7 +131,7 @@ class Order extends \yii\db\ActiveRecord
      */
     public function getUser0()
     {
-        return $this->hasOne(User::className(), ['id' => 'user']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
@@ -140,6 +141,12 @@ class Order extends \yii\db\ActiveRecord
      */
     public function getVeggies0()
     {
-        return $this->hasOne(Veggy::className(), ['id' => 'veggies']);
+        return $this->hasOne(Veggy::className(), ['id' => 'veggies_id']);
     }
+
+    public function getFinish0()
+    {
+        return $this->hasOne(Finish::className(), ['id' => 'finish_id']);
+    }
+
 }

@@ -8,6 +8,14 @@ use yii\helpers\Html;
 $this->title = 'Create Order';
 $this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+if (!$meal) : ?>
+There is NO ative meal. Activate a meal first.
+<?php else :
+    //echo '<pre >'.print_r(['$meal' => $meal, 'user' => Yii::$app->user], true);
+    //die();
+    $model->meal_id = $meal->id;
+    $model->user_id = Yii::$app->user->id;
 ?>
 <div class="order-create">
 
@@ -15,6 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'meal' => $meal
     ]) ?>
 
 </div>
+<?php endif;
