@@ -21,16 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-lg-4">
                 <h2>Work In Progress</h2>
 
-                <p>I started this demonstration project to show/test my skills. Never did anything with Yii before. The layout of the MVC project is simulart (nog equal) to that of Laravel. I'm still lokking for feature I miss. Laraval seems to be leaning much more towards client-side functionality (with VueJS), while Yii is more basic: a DIY project.
-                <br />
-                The demo's I've read all push the models into a single directory. Cluttering that same folder with models for forms. Personally, I'd like to destinguish more within the models, seperating them by namespace and/or file hierarchy. And I'm not sure the forms definitions belong with the models.I guess it would nbe easier to split form functionality from the database model, but If that's the way to go, maybe create e new namespace: user\forms?
+                <p>For a detailed derscription oif the technical challenge, check the <span class="code">README.md</span> file in the root of this project.
                 <br />
                 </p>
             </div>
             <div class="col-lg-4">
                 <h2>Final words</h2>
 
-                <p>I'm not done yet, so... no final words yet. </p>
+                <p>Let's say our prayers and... </p>
+                <div class="alert alert-info" role="alert">Bon Appetit.</div>
 
                 <!--<p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>-->
             </div>
