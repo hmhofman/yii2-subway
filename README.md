@@ -1,4 +1,4 @@
-# Technical challenge Vontis
+# Technical challenge
 *See below for personal reflections...*
 
 ------------
